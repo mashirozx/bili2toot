@@ -8,6 +8,7 @@ URL: https://2heng.xin
 License: MIT
 """
 from bs4 import BeautifulSoup
+from html import unescape
 from .get_config import GetConfig
 
 config = GetConfig()
@@ -42,7 +43,7 @@ def TweetDecoder(rss_data):
 
   # print(soup.prettify())
   # print(str(data))
-  data['plain'] = soup.prettify() + '\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
+  data['plain'] = unescape(soup.prettify()) + '\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
   return data 
 
 if __name__ == '__main__':
