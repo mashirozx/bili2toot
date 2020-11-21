@@ -3,7 +3,7 @@
 """
 Created on May 29, 2020
 Desc: Twitter HTML parser
-Author: Mashiro 
+Author: Mashiro
 URL: https://2heng.xin
 License: MIT
 """
@@ -44,10 +44,10 @@ def TweetDecoder(rss_data):
 
   # print(soup.prettify())
   # print(str(data))
-  plain_content = unescape(soup.prettify())
+  plain_content = rss_data['title'] + '\n******\n' + unescape(soup.prettify())
   plain_content = re.sub(r'(#[^#]+)#', lambda m : m.group(1)+' ', plain_content)
-  data['plain'] = plain_content + '\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
-  return data 
+  data['plain'] = plain_content + '\n'
+  return data
 
 if __name__ == '__main__':
   test_normal = """
