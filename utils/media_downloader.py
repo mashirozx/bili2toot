@@ -3,12 +3,10 @@
 """
 Created on May 29, 2020
 Desc: Media file downloader
-Author: Mashiro 
+Author: Mashiro
 URL: https://2heng.xin
 License: MIT
 """
-import urllib.request
-import ffmpy
 from .get_config import GetConfig
 
 config = GetConfig()
@@ -18,32 +16,25 @@ def MediaDownloader(data):
   :param object: Data return from TweetDecoder
   :return {'gif_count': (max+1)gif_id, 'video_count': video_id, 'image_count': img_id, 'plain': str}
   """
-  # set header
-  opener = urllib.request.build_opener()
-  opener.addheaders = opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36')]
-  urllib.request.install_opener(opener)
 
-  res = {'video_count': None, 'image_count': None, 'plain': None, 'video_link': None}
+  res = {'gif_count': None, 'video_count': None, 'image_count': None, 'plain': None, 'video_link': None}
+  att = ''
 
   if data['image']:
-    img_id = 1
+    att = att + '\n'
     for url in data['image']:
-      if (img_id <= 4):
-        try:
-          urllib.request.urlretrieve(url, 'temp/img'+str(img_id)+'.png')
-          img_id = img_id+1
-        except Exception:
-          print(f'ERRO: failed[img]: {url}')
-          # for e in Exception:
-          #   print(e)
+      att = att + 'IMAGE: [' + url + ']\n'
 
-    res['image_count']=img_id
+  #if data['video']:
+  #  att = att + '\n'
+  #  att = att + 'VIDEO: ['+data['video'][0] +'] {'+data['video_poster'][0] +'}\n' 
+  #  res['video_link'] = data['video'][0]
 
   if data['iframe']:
     res['video_link']=data['iframe'][0]
     res['video_count']=1
-  
-  res['plain']=data['plain']
+
+  res['plain'] = data['plain'] + att
 
   return res
 
