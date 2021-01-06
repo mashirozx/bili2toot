@@ -17,22 +17,23 @@ def MediaDownloader(data):
   :return {'gif_count': (max+1)gif_id, 'video_count': video_id, 'image_count': img_id, 'plain': str}
   """
 
-  res = {'gif_count': None, 'video_count': None, 'image_count': None, 'plain': None, 'video_link': None}
+  res = {'gif_count': None, 'video_count': None, 'image_count': None, 'plain': None, 'video_link': None, 'link': data['link']}
   att = ''
+
+  #if data['video']:
+  #  att = att + '\n'
+  #  att = att + 'VIDEO: ['+data['video'][0] +'] {'+data['video_poster'][0] +'}\n'
+  #  res['video_link'] = data['video'][0]
+
+  if data['iframe']:
+    res['video_link']='https://api.2heng.xin/bilibili/og.php?av='+data['iframe'][0]+'&danmaku=0'
+    res['video_count']=1
 
   if data['image']:
     att = att + '\n'
     for url in data['image']:
-      att = att + 'IMAGE: [' + url + ']\n'
-
-  #if data['video']:
-  #  att = att + '\n'
-  #  att = att + 'VIDEO: ['+data['video'][0] +'] {'+data['video_poster'][0] +'}\n' 
-  #  res['video_link'] = data['video'][0]
-
-  if data['iframe']:
-    res['video_link']=data['iframe'][0]
-    res['video_count']=1
+      if res['video_count'] is None:
+        att = att + 'IMAGE: [' + url + ']\n'
 
   res['plain'] = data['plain'] + att
 

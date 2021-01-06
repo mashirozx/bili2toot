@@ -3,7 +3,7 @@
 """
 Created on May 29, 2020
 Desc: Twitter HTML parser
-Author: Mashiro 
+Author: Mashiro
 URL: https://2heng.xin
 License: MIT
 """
@@ -24,14 +24,15 @@ def TweetDecoder(rss_data):
   data = {
       'iframe': [],
       'image': [],
-      'plain': None
+      'plain': None,
+      'link': None
   }
 
   for link in soup.find_all('a'):
     link.replace_with(' ' + link.get('href') + ' ')
 
   for iframe in soup.find_all('iframe'):
-    data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', 'https://www.bilibili.com/video/av'))
+    data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', ''))
     iframe.replace_with('')
 
   for image in soup.find_all('img'):
@@ -46,8 +47,9 @@ def TweetDecoder(rss_data):
   # print(str(data))
   plain_content = unescape(soup.prettify())
   plain_content = re.sub(r'(#[^#]+)#', lambda m : m.group(1)+' ', plain_content)
-  data['plain'] = plain_content + '\n'+config['MASTODON']['BiliSourcePrefix']+' ' + rss_data['link']
-  return data 
+  data['plain'] = plain_content
+  data['link'] = rss_data['link']
+  return data
 
 if __name__ == '__main__':
   test_normal = """
