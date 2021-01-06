@@ -20,18 +20,18 @@ def MediaDownloader(data):
   res = {'gif_count': None, 'video_count': None, 'image_count': None, 'plain': None, 'video_link': None}
   att = ''
 
-  if data['image']:
-    att = att + '\n'
-    for url in data['image']:
-      att = att + 'IMAGE: [' + url + ']\n'
+  # if data['image']:
+  #   att = att + '\n'
+  #   for url in data['image']:
+  #     att = att + 'IMAGE: [' + url + ']\n'
 
   #if data['video']:
   #  att = att + '\n'
-  #  att = att + 'VIDEO: ['+data['video'][0] +'] {'+data['video_poster'][0] +'}\n' 
+  #  att = att + 'VIDEO: ['+data['video'][0] +'] {'+data['video_poster'][0] +'}\n'
   #  res['video_link'] = data['video'][0]
 
   if data['iframe']:
-    res['video_link']=data['iframe'][0]
+    res['video_link']='https://api.2heng.xin/bilibili/og.php?av='+data['iframe'][0]+'&danmaku=0'
     res['video_count']=1
 
   res['plain'] = data['plain'] + att

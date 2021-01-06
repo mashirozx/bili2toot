@@ -25,12 +25,12 @@ def TootPoster(data):
   if data['video_count'] is not None:
     data['plain'] = data['plain'] + '\n'+config['MASTODON']['VideoSourcePrefix']+' ' + data['video_link']
 
-  if data['image_count'] is not None:
-    for id in range(1, min(data['image_count'], 5)):
-      media_ids_arr.append(media_post('temp/img%d.png' % id))
+  # if data['image_count'] is not None:
+  #   for id in range(1, min(data['image_count'], 5)):
+  #     media_ids_arr.append(media_post('temp/img%d.png' % id))
 
   try:
-    mastodon.status_post(status=data['plain'], media_ids=media_ids_arr, visibility=config['MASTODON']['TootVisibility'])
+    mastodon.status_post(status=data['plain'], visibility=config['MASTODON']['TootVisibility'])
   except Exception:
     print(f'ERRO: failed[mastodon.status_post]')
     # for e in Exception:

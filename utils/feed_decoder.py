@@ -31,7 +31,7 @@ def TweetDecoder(rss_data):
     link.replace_with(' ' + link.get('href') + ' ')
 
   for iframe in soup.find_all('iframe'):
-    data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', 'https://www.bilibili.com/video/av'))
+    data['iframe'].append(iframe.get('src').replace('https://player.bilibili.com/player.html?aid=', ''))
     iframe.replace_with('')
 
   for image in soup.find_all('img'):
